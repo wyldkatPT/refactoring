@@ -4,13 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.celfocus.training.Saver;
-import com.celfocus.training.Saver.ItemInfo;
-import com.celfocus.training.Saver.ShoppingCart;
-import com.celfocus.training.Saver.User;
+import com.celfocus.training.entity.ItemInfo;
+import com.celfocus.training.entity.ShoppingCart;
+import com.celfocus.training.entity.User;
 import com.celfocus.training.util.Utils;
 
 /**
- * User For Frontent
+ * com.celfocus.training.entity.User For Frontent
  */
 public class UserRequesterFrontend {
 
@@ -23,17 +23,17 @@ public class UserRequesterFrontend {
     public String returnFrontendUser(String type, User user) {
         if (type.equals("html")) {
             return "<div>"
-             + "<h1>User</h1>"
-             + "<span>" + user.nameOfUser + "</span>"
-             + "<span>" + user.bd + "</span>"
-             + "<span>" + user.ifuserisolder + "</span>"
+             + "<h1>com.celfocus.training.entity.User</h1>"
+             + "<span>" + user.name + "</span>"
+             + "<span>" + user.birthDate + "</span>"
+             + "<span>" + user.ifUserIsOlder + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<name> " + user.nameOfUser + "</name>"
-                    + "<bd>" + user.bd + "</bd>"
-                    + "<older> " + user.ifuserisolder + "</older>";
+                    + "<name> " + user.name + "</name>"
+                    + "<birthDate>" + user.birthDate + "</birthDate>"
+                    + "<older> " + user.ifUserIsOlder + "</older>";
             } else {
                 //do nothing
                 return "";
@@ -50,15 +50,15 @@ public class UserRequesterFrontend {
     public String returnFrontendShoppingCart(String type, ShoppingCart shoppingCart) {
         if (type.equals("html")) {
             return "<div>"
-             + "<h1>ShoppingCart</h1>"
+             + "<h1>com.celfocus.training.entity.ShoppingCart</h1>"
              + "<span> " + shoppingCart.user + "</span>"
-             + "<span> " + shoppingCart.itens + "</span>"
+             + "<span> " + shoppingCart.items + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
                     + "<user> " + shoppingCart.user + "</user>"
-                    + "<itens> " + shoppingCart.itens + "</itens>";
+                    + "<items> " + shoppingCart.items + "</items>";
             } else {
                 //do nothing
                 return "";
@@ -77,12 +77,12 @@ public class UserRequesterFrontend {
             return "<div>"
              + "<h1>Item</h1>"
              + "<span> " + item.name + "</span>"
-             + "<span> " + item.valor + "</span>"
+             + "<span> " + item.value + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<name> " + item.name + "</name>"
-                    + "<valor> " + item.valor + "</valor>";
+                    + "<value> " + item.value + "</value>";
             } else {
                 //do nothing
                 return "";
@@ -120,12 +120,12 @@ public class UserRequesterFrontend {
     /**
      * Adicionar item ao carrinho
      */
-    public void aitemShopping(String user, String nameItem, int qt) {
+    public void aitemShopping(String userName, String itemName, int qt) {
         Saver saver = new Saver();
 
-        nameItem = nameItem.toLowerCase().concat("_item");
+        itemName = itemName.toLowerCase().concat("_item");
 
-        saver.aIU(user, nameItem, qt);
+        saver.addItemToShoppingCart(userName, itemName, qt);
     }
 
 }
