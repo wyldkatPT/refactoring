@@ -47,9 +47,10 @@ public class Saver {
         public double valor;
     }
 
+    //@todo save and update in different methods
     public User saveOrUpdateUser(String name, Date bd, boolean ifuserisolder) {
-        if (eu(name)) {
-            User user = fu(name);
+        if (userFound(name)) {
+            User user = getUser(name);
             user.bd = bd;
             user.ifuserisolder = ifuserisolder;
             ShoppingCart found = null;
@@ -82,24 +83,26 @@ public class Saver {
         }
     }
 
-    private boolean eu(String name) {
-        User userFound = null;
+    //@todo UpdateUser
+    //public User UpdateUser(){return user;}
+
+    private boolean userFound(String name) {
         for (User user : users) {
             if (user.nameOfUser.equals(name)) {
-                userFound = user;
+                return true;
             }
         }
-        return userFound != null;
+        return false;
     }
 
-    private User fu(String name) {
-        User userFound = null;
+    private User getUser(String name) {
+        User userByName = null;
         for (User user : users) {
             if (user.nameOfUser.equals(name)) {
-                userFound = user;
+                userByName = user;
             }
         }
-        return userFound;
+        return userByName;
     }
 
     public ItemInfo encontrarItem(String name) {
