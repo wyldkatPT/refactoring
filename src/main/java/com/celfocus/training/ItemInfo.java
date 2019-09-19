@@ -4,8 +4,12 @@ public class ItemInfo {
 
     private String name;
 
-    private double valor;
+    private double value;
 
+    public ItemInfo(String name, double value) {
+        this.name = name;
+        this.value = value;
+    }
 
     public String getName() {
         return name;
@@ -15,11 +19,11 @@ public class ItemInfo {
         this.name = name;
     }
 
-    public double getValor() {
-        return valor;
+    public double getValue() {
+        return value;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setValue(double value) {
+        this.value = value;
     }
 }

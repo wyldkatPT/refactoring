@@ -19,6 +19,10 @@ public class ShoppingCart {
         this.items = items;
     }
 
+    public void addCartItem(ShoppingCartItem item){
+        items.add(item);
+    }
+
     public User getUser() {
         return user;
     }

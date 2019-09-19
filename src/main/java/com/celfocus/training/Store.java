@@ -19,18 +19,53 @@ public class Store {
     }
 
 
-    public User saveOrUpdateUser(String name, Date birthdayDate, boolean isAgeOver18) {
-        if (userFound(name)) {
-            return updateUser(name,birthdayDate,isAgeOver18);
-        } else {
-            return saveUser(name,birthdayDate,isAgeOver18);
+    public void addItemUser(String userName, String nameItem, int quantity) {
+        if (userFound(userName)) {
+            User user = getUser(userName);
+            if (shoppingCartFound(user)) {
+                if (shoppingCartItemFound(user, nameItem)) {
+                    ShoppingCartItem shoppingCartItem = getShoppingCartItem(user, nameItem);
+                    shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + quantity);
+                } else {
+                    if (!itemFound(nameItem)) {
+                        addItem(nameItem, 0.0);
+                    }
+                    ItemInfo item = getItem(nameItem);
+                    ShoppingCartItem shoppingCartItem = new ShoppingCartItem(item, quantity, getDiscount(user));
+
+                }
+            }
         }
     }
 
-    public User updateUser(String name, Date birthdayDate, boolean isAgeOver18) {
+    public void removeItemUser(String userName, String nameItem) {
+        if (userFound(userName)) {
+            User user = getUser(userName);
+            if (shoppingCartFound(user)) {
+                if (shoppingCartItemFound(user, nameItem)) {
+                    ShoppingCartItem shoppingCartItem = getShoppingCartItem(user, nameItem);
+                    ShoppingCart shoppingCart = getShoppingCart(user);
+                    ArrayList <ShoppingCartItem> cartItemList = shoppingCart.getItems();
+                    cartItemList.remove(shoppingCartItem);
+                    shoppingCart.setItems(cartItemList);
+                } else {
+                }
+            }
+        }
+    }
+
+
+    public User saveOrUpdateUser(String name, Date birthdayDate) {
+        if (userFound(name)) {
+            return updateUser(name,birthdayDate);
+        } else {
+            return saveUser(name,birthdayDate);
+        }
+    }
+
+    public User updateUser(String name, Date birthdayDate) {
         User user = getUser(name);
         user.setBirthdayDate(birthdayDate);
-        user.setIsAgeOver18(isAgeOver18);
         ShoppingCart cart = getShoppingCart(user);
 
         if (!shoppingCartFound(user)) {
@@ -41,8 +76,8 @@ public class Store {
         return user;
     }
 
-    public User saveUser(String name, Date birthdayDate, boolean isAgeOver18) {
-        User user = new User(name,birthdayDate,isAgeOver18);
+    public User saveUser(String name, Date birthdayDate) {
+        User user = new User(name,birthdayDate);
         userList.add(user);
         ArrayList<ShoppingCartItem> items = new ArrayList<>();
         ShoppingCart shoppingCart = new ShoppingCart(user,items);
@@ -94,13 +129,57 @@ public class Store {
         return null;
     }
 
-    private ItemInfo getItem(String name) {
+    private boolean shoppingCartItemFound(User user, String itemName){
+        ShoppingCart shoppingCart = getShoppingCart(user);
+        for (ShoppingCartItem shoppingCartItem : shoppingCart.getItems()) {
+            if (shoppingCartItem.getItem().getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private ShoppingCartItem getShoppingCartItem(User user, String itemName){
+        ShoppingCart shoppingCart = getShoppingCart(user);
+        for (ShoppingCartItem shoppingCartItem : shoppingCart.getItems()) {
+            if (shoppingCartItem.getItem().getName().equals(itemName)) {
+                return shoppingCartItem;
+            }
+        }
+        return null;
+    }
+
+    private boolean itemFound(String itemName){
         for (ItemInfo item : itemList) {
-            if (item.getName().equals(name)) {
+            if (item.getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void addItem (String itemName, double value){
+        ItemInfo item = new ItemInfo(itemName,value);
+        itemList.add(item);
+    }
+
+
+    private ItemInfo getItem(String itemName) {
+        for (ItemInfo item : itemList) {
+            if (item.getName().equals(itemName)) {
                 return item;
             }
         }
         return null;
     }
+
+    private double getDiscount(User user){
+        int age = user.getAge();
+        if (age > 80) return 0.2;
+        else if (age > 18) {
+            return 0.1;
+        }
+        else return 0.0;
+     }
 
 }

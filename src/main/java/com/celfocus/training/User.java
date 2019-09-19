@@ -11,16 +11,18 @@ public class User {
 
     private Date birthdayDate; // data de nascimento
 
-    private boolean isAgeOver18; // se usuário é maior de idade
 
-    public User(String nameOfUser, Date birthdayDate, boolean isAgeOver18) {
+    public User(String nameOfUser, Date birthdayDate) {
         this.nameOfUser = nameOfUser;
         this.birthdayDate = birthdayDate;
-        this.isAgeOver18 = isAgeOver18;
     }
 
     public String getNameOfUser() {
         return nameOfUser;
+    }
+
+    public int getAge(){
+        return new Date().getYear() - this.birthdayDate.getYear();
     }
 
     public void setNameOfUser(String nameOfUser) {
@@ -35,20 +37,13 @@ public class User {
         this.birthdayDate = birthdayDate;
     }
 
-    public boolean getIsAgeOver18() {
-        return isAgeOver18;
-    }
 
-    public void setIsAgeOver18(boolean isAgeOver18) {
-        this.isAgeOver18 = isAgeOver18;
-    }
 
     @Override
     public String toString() {
         return "User{" +
                 "nameOfUser='" + nameOfUser + '\'' +
                 ", birthdayDate=" + birthdayDate +
-                ", isAgeOver18=" + isAgeOver18 +
                 '}';
     }
 }

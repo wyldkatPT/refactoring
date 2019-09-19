@@ -8,6 +8,12 @@ public class ShoppingCartItem {
 
     private double discount;
 
+    public ShoppingCartItem(ItemInfo item, int quantity, double discount) {
+        this.item = item;
+        this.quantity = quantity;
+        this.discount = discount;
+    }
+
     public ItemInfo getItem() {
         return item;
     }
