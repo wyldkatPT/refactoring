@@ -1,26 +1,21 @@
 package com.celfocus.training.util;
 
+import org.apache.commons.codec.binary.Hex;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.commons.codec.binary.Hex;
+import java.util.*;
 
 public final class Utils {
 
-    private Utils() {};
-
     static MessageDigest SHA256;
-    
+
+    ;
+
     static {
         try {
             SHA256 = MessageDigest.getInstance("SHA-256");
@@ -28,19 +23,22 @@ public final class Utils {
             throw new RuntimeException(e);
         }
     }
-    
+
+    private Utils() {
+    }
+
     public static String toHexStringSHA256(String source, Charset charset) {
         return Hex.encodeHexString(toSHA256(source.getBytes(charset)));
     }
-    
-    public static byte[] toSHA256(byte[] bytes) {
+
+    private static byte[] toSHA256(byte[] bytes) {
         return SHA256.digest(bytes);
     }
 
     public static boolean isNullOrEmpty(String str) {
-		return str == null || str.isEmpty();
+        return str == null || str.isEmpty();
     }
-    
+
     public static Map<String, String> parseHTTPHeaderMap(String headers) {
         String value = headers.substring(1, headers.length() - 1);
         String[] keyValuePairs = value.split(",");              //split the string to creat key-value pairs
@@ -73,7 +71,7 @@ public final class Utils {
         return toString(date, new SimpleDateFormat(format));
     }
 
-    public static String toString(Date date, DateFormat format) {
+    private static String toString(Date date, DateFormat format) {
         Objects.requireNonNull(date);
         Objects.requireNonNull(format);
         return format.format(date);
@@ -106,7 +104,7 @@ public final class Utils {
         }
         int length = ts.length / 2;
         Map<K, V> map = new HashMap<K, V>(length);
-        for (int index = 0; index <= length; index+=2) {
+        for (int index = 0; index <= length; index += 2) {
             map.put((K) ts[index], (V) ts[index + 1]);
         }
         return map;
