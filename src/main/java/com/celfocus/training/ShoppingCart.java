@@ -7,14 +7,14 @@ public class ShoppingCart {
 
     private User user;
 
-    private ArrayList<ShoppingCartItem> items;
+    private List<ShoppingCartItem> items;
 
     public ShoppingCart(User user){
         this.user = user;
-        this.items = new ArrayList<ShoppingCartItem>();
+        this.items = new ArrayList<>();
     }
 
-    public ShoppingCart(User user, ArrayList<ShoppingCartItem> items) {
+    public ShoppingCart(User user, List<ShoppingCartItem> items) {
         this.user = user;
         this.items = items;
     }
@@ -31,11 +31,11 @@ public class ShoppingCart {
         this.user = user;
     }
 
-    public ArrayList<ShoppingCartItem> getItems() {
+    public List<ShoppingCartItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<ShoppingCartItem> items) {
+    public void setItems(List<ShoppingCartItem> items) {
         this.items = items;
     }
 }

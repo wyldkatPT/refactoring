@@ -95,7 +95,7 @@ public class UserRequesterFrontend {
      * Cria ou atualiza usuario
      *
      * @param name
-     * @param string_date
+     * @param birthdayDate
      */
     public void createOrUpdateUser(String name, String birthdayDate) {
         Store store = new Store();
