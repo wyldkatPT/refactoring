@@ -18,7 +18,7 @@ public class UserRequesterFrontend {
      * @param user usuario que será renderizado
      * @return o texto no formato solicitado com as informarções do user
      */
-    public String returnFrontendUser(String type, User user) {
+    public String FrontendUser(String type, User user) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>User</h1>"
@@ -46,7 +46,7 @@ public class UserRequesterFrontend {
      * @param shoppingCart shoppingCart que será renderizado
      * @return o texto no formato solicitado com as informarções do shoppingCart
      */
-    public String returnFrontendShoppingCart(String type, ShoppingCart shoppingCart) {
+    public String FrontendShoppingCart(String type, ShoppingCart shoppingCart) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>ShoppingCart</h1>"
@@ -72,7 +72,7 @@ public class UserRequesterFrontend {
      * @param item item que será renderizado
      * @return o texto no formato solicitado com as informarções do item
      */
-    public String returnFrontendItem(String type, ItemInfo item) {
+    public String FrontendItem(String type, ItemInfo item) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>ItemInfo</h1>"
@@ -82,6 +82,7 @@ public class UserRequesterFrontend {
         } else {
             if (type.equals("xml")) {
                 return "<name> " + item.getName() + "</name>"
+
                         + "<valor> " + item.getValue() + "</valor>";
             } else {
                 //do nothing
@@ -93,40 +94,36 @@ public class UserRequesterFrontend {
     /**
      * Cria ou atualiza usuario
      *
-     * @param arg0
-     * @param arg1
-     * @param arg2
+     * @param name
+     * @param string_date
      */
-    public void createOrUpdateUser(String arg0, String arg1, String arg2) {
+    public void createOrUpdateUser(String name, String string_date) {
         Store Store = new Store();
 
-        arg0 = arg0.toUpperCase();
+        name = name.toUpperCase();
 
-        Date d = Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy"));
-        if (new Date().getYear() - d.getYear() < 65) {
-            arg2 = "false";
-        }
+        Date date = Utils.toDate(string_date, new SimpleDateFormat("dd/mm/yyyy"));
 
-        Store.saveOrUpdateUser(arg0, Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy")));
+        Store.saveOrUpdateUser(name, date);
     }
 
     /**
      * Remover Usuario
      */
-    public void deleteUser(String arg0) {
+    public void deleteUser(String name) {
         Store store = new Store();
-        store.deleteUser(arg0);
+        store.deleteUser(name);
     }
 
     /**
      * Adicionar item ao carrinho
      */
-    public void aitemShopping(String user, String nameItem, int qt) {
+    public void additem(String user, String nameItem, int quantity) {
         Store saver = new Store();
 
         nameItem = nameItem.toLowerCase().concat("_item");
 
-        saver.addItemUser(user, nameItem, qt);
+        saver.addItemUser(user, nameItem, quantity);
     }
 
 }
