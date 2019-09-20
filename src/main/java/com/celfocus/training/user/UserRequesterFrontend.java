@@ -18,7 +18,7 @@ public class UserRequesterFrontend {
      * @param user usuario que será renderizado
      * @return o texto no formato solicitado com as informarções do user
      */
-    public String FrontendUser(String type, User user) {
+    public String frontendUser(String type, User user) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>User</h1>"
@@ -46,7 +46,7 @@ public class UserRequesterFrontend {
      * @param shoppingCart shoppingCart que será renderizado
      * @return o texto no formato solicitado com as informarções do shoppingCart
      */
-    public String FrontendShoppingCart(String type, ShoppingCart shoppingCart) {
+    public String frontendShoppingCart(String type, ShoppingCart shoppingCart) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>ShoppingCart</h1>"
@@ -72,7 +72,7 @@ public class UserRequesterFrontend {
      * @param item item que será renderizado
      * @return o texto no formato solicitado com as informarções do item
      */
-    public String FrontendItem(String type, ItemInfo item) {
+    public String frontendItem(String type, ItemInfo item) {
         if (type.equals("html")) {
             return "<div>"
                     + "<h1>ItemInfo</h1>"
@@ -97,14 +97,14 @@ public class UserRequesterFrontend {
      * @param name
      * @param string_date
      */
-    public void createOrUpdateUser(String name, String string_date) {
-        Store Store = new Store();
+    public void createOrUpdateUser(String name, String birthdayDate) {
+        Store store = new Store();
 
         name = name.toUpperCase();
 
-        Date date = Utils.toDate(string_date, new SimpleDateFormat("dd/mm/yyyy"));
+        Date date = Utils.toDate(birthdayDate, new SimpleDateFormat("dd/mm/yyyy"));
 
-        Store.saveOrUpdateUser(name, date);
+        store.saveOrUpdateUser(name, date);
     }
 
     /**
