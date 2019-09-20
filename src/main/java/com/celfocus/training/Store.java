@@ -45,7 +45,7 @@ public class Store {
                 if (shoppingCartItemFound(user, nameItem)) {
                     ShoppingCartItem shoppingCartItem = getShoppingCartItem(user, nameItem);
                     ShoppingCart shoppingCart = getShoppingCart(user);
-                    ArrayList <ShoppingCartItem> cartItemList = shoppingCart.getItems();
+                    List<ShoppingCartItem> cartItemList = shoppingCart.getItems();
                     cartItemList.remove(shoppingCartItem);
                     shoppingCart.setItems(cartItemList);
                 } else {
