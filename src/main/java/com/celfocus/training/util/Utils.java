@@ -1,19 +1,14 @@
 package com.celfocus.training.util;
 
+import org.apache.commons.codec.binary.Hex;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.commons.codec.binary.Hex;
+import java.util.*;
 
 public final class Utils {
 
