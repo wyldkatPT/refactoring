@@ -1,13 +1,13 @@
 package com.celfocus.training.user;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.celfocus.training.Saver;
 import com.celfocus.training.Saver.ItemInfo;
 import com.celfocus.training.Saver.ShoppingCart;
 import com.celfocus.training.Saver.User;
 import com.celfocus.training.util.Utils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * User For Frontent
@@ -24,16 +24,16 @@ public class UserRequesterFrontend {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>User</h1>"
-             + "<span>" + user.nameOfUser + "</span>"
-             + "<span>" + user.bd + "</span>"
-             + "<span>" + user.ifuserisolder + "</span>"
+             + "<span>" + user.userName + "</span>"
+             + "<span>" + user.birthdayDate + "</span>"
+             + "<span>" + user.isAdult + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<name> " + user.nameOfUser + "</name>"
-                    + "<bd>" + user.bd + "</bd>"
-                    + "<older> " + user.ifuserisolder + "</older>";
+                    + "<name> " + user.userName + "</name>"
+                    + "<bd>" + user.birthdayDate + "</bd>"
+                    + "<older> " + user.isAdult + "</older>";
             } else {
                 //do nothing
                 return "";
@@ -52,13 +52,13 @@ public class UserRequesterFrontend {
             return "<div>"
              + "<h1>ShoppingCart</h1>"
              + "<span> " + shoppingCart.user + "</span>"
-             + "<span> " + shoppingCart.itens + "</span>"
+             + "<span> " + shoppingCart.items + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
                     + "<user> " + shoppingCart.user + "</user>"
-                    + "<itens> " + shoppingCart.itens + "</itens>";
+                    + "<itens> " + shoppingCart.items + "</itens>";
             } else {
                 //do nothing
                 return "";
@@ -77,12 +77,12 @@ public class UserRequesterFrontend {
             return "<div>"
              + "<h1>Item</h1>"
              + "<span> " + item.name + "</span>"
-             + "<span> " + item.valor + "</span>"
+             + "<span> " + item.value + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<name> " + item.name + "</name>"
-                    + "<valor> " + item.valor + "</valor>";
+                    + "<valor> " + item.value + "</valor>";
             } else {
                 //do nothing
                 return "";
@@ -92,40 +92,40 @@ public class UserRequesterFrontend {
 
     /**
      * Cria ou atualiza usuario
-     * @param arg0
-     * @param arg1
-     * @param arg2
+     * @param name
+     * @param birthdayDate
+     * @param isAdult
      */
-    public void createOrUpdateUser(String arg0, String arg1, String arg2) {
+    public void createOrUpdateUser(String name, String birthdayDate, String isAdult) {
         Saver saver = new Saver();
 
-        arg0 = arg0.toUpperCase();
+        name = name.toUpperCase();
 
-        Date d = Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy"));
-        if (new Date().getYear() - d.getYear() < 65) {
-            arg2 = "false";
+        Date date = Utils.toDate(birthdayDate, new SimpleDateFormat("dd/mm/yyyy"));
+        if (new Date().getYear() - date.getYear() < 65) {
+            isAdult = "false";
         }
 
-        saver.saveOrUpdateUser(arg0, Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy")), arg2.equals("true") ? true : false);
+        saver.createOrUpdateUser(name, Utils.toDate(birthdayDate, new SimpleDateFormat("dd/mm/yyyy")), isAdult.equals("true") ? true : false);
     }
 
     /**
      * Remover Usuario
      */
-    public void deleteUser(String arg0) {
+    public void deleteUser(String name) {
         Saver saver = new Saver();
-        saver.deleteUserOrNot(arg0);
+        saver.deleteUser(name);
     }
 
     /**
      * Adicionar item ao carrinho
      */
-    public void aitemShopping(String user, String nameItem, int qt) {
+    public void addItemToUserShoppingCart(String userName, String itemName, int quantity) {
         Saver saver = new Saver();
 
-        nameItem = nameItem.toLowerCase().concat("_item");
+        itemName = itemName.toLowerCase().concat("_item");
 
-        saver.aIU(user, nameItem, qt);
+        saver.addItemToUser(userName, itemName, quantity);
     }
 
 }
