@@ -17,7 +17,7 @@ public class UserRequesterFrontend {
 
     public UserRequesterFrontend(UserRequestFactory userRequestFactory, UserService userService) {
         this.userRequestFactory = userRequestFactory;
-        userService = userService;
+        this.userService = userService;
     }
 
     /**
@@ -52,20 +52,21 @@ public class UserRequesterFrontend {
 
     /**
      * Cria ou atualiza usuario
-     * @param arg0
-     * @param arg1
-     * @param arg2
+     * @param name
+     * @param date
+     * @param isOlder
      */
-    public void createOrUpdateUser(String arg0, String arg1, String arg2) {
-        arg0 = arg0.toUpperCase();
+    public void createOrUpdateUser(String name, String date, String isOlder) {
+        name = name.toUpperCase();
 
         // TODO business logic outside UI, remove magic number
-        Date d = Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy"));
-        if (new Date().getYear() - d.getYear() < 65) {
-            arg2 = "false";
+        Date d = Utils.toDate(date, new SimpleDateFormat("dd/mm/yyyy"));
+        boolean isLessThan65 = new Date().getYear() - d.getYear() < 65;
+        if (isLessThan65) {
+            isOlder = "false";
         }
 
-        userService.saveOrUpdateUser(arg0, Utils.toDate(arg1, new SimpleDateFormat("dd/mm/yyyy")), arg2.equals("true"));
+        userService.saveOrUpdateUser(name, Utils.toDate(date, new SimpleDateFormat("dd/mm/yyyy")), isOlder.equals("true"));
     }
 
     /**
