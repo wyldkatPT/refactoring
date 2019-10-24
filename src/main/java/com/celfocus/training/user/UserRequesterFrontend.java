@@ -3,6 +3,7 @@ package com.celfocus.training.user;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.celfocus.training.User;
 import com.celfocus.training.item.ItemInfo;
 import com.celfocus.training.Saver;
 import com.celfocus.training.Saver.ShoppingCart;
