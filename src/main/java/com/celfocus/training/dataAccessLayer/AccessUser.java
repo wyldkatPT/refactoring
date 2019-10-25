@@ -24,7 +24,7 @@ public class AccessUser {
     }
 
     public User updateUser(String name, String birthDate) throws UserNotFoundException{
-        User user = users.stream().filter(x -> x.getName().equals(name)).findFirst().get();
+        User user = users.stream().filter(userFound -> userFound.getName().equals(name)).findFirst().get();
         Date birthDateConverted = Utils.toDate(birthDate, new SimpleDateFormat("dd/mm/yyyy"));
 
         if(user == null){
@@ -32,7 +32,7 @@ public class AccessUser {
         }
 
         user.setBirthDate(birthDateConverted);
-        ShoppingCart shoppingCart = shoppingCarts.stream().filter(x -> x.getUser().equals(user)).findFirst().get();
+        ShoppingCart shoppingCart = shoppingCarts.stream().filter(shoppingCartFound -> shoppingCartFound.getUser().equals(user)).findFirst().get();
 
         if (shoppingCart == null) {
             shoppingCart = new ShoppingCart();
@@ -59,7 +59,7 @@ public class AccessUser {
     }
 
     public void deleteUser(String name) throws UserNotFoundException{
-        User user = users.stream().filter(x -> x.getName().equals(name)).findFirst().get();
+        User user = users.stream().filter(userFound -> userFound.getName().equals(name)).findFirst().get();
 
         if(user == null){
             throw new UserNotFoundException("User not found");

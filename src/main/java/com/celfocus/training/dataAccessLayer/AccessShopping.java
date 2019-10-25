@@ -25,7 +25,7 @@ public class AccessShopping {
     public void removeItems(ShoppingCart shoppingCart, String nameItem) {
 
         ShoppingCartItem shoppingCartItem =
-            shoppingCart.getItems().stream().filter(x -> x.getItem().getName().equals(nameItem)).findFirst().get();
+            shoppingCart.getItems().stream().filter(userFound -> userFound.getItem().getName().equals(nameItem)).findFirst().get();
 
         if (shoppingCartItem != null) {
             shoppingCart.getItems().remove(shoppingCartItem);
@@ -40,7 +40,7 @@ public class AccessShopping {
 
     public void addItemInfo(String name, double value) {
 
-        ItemInfo itemInfo = items.stream().filter(x -> x.getName().equals(name)).findFirst().get();
+        ItemInfo itemInfo = items.stream().filter(itemInfoFound -> itemInfoFound.getName().equals(name)).findFirst().get();
 
         if (itemInfo == null ) {
             ItemInfo ift = new ItemInfo();
@@ -53,7 +53,7 @@ public class AccessShopping {
     private void setDiscountForOlders(String name, String nameItem, int quantity) throws UserNotFoundException, ShoppingCartNotFound,
         ItemNotFoundException {
 
-        User user = users.stream().filter(x -> x.getName().equals(name)).findFirst().get();
+        User user = users.stream().filter(userFound -> userFound.getName().equals(name)).findFirst().get();
 
         if (user == null) {
             throw new UserNotFoundException("User not found");
@@ -70,7 +70,7 @@ public class AccessShopping {
         if (shoppingCartItem != null) {
             shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + quantity);
         } else {
-            ItemInfo info = items.stream().filter(x -> x.getName().equals(nameItem)).findFirst().get();
+            ItemInfo info = items.stream().filter(infoFound -> infoFound.getName().equals(nameItem)).findFirst().get();
 
             if(info == null) {
                 throw new ItemNotFoundException("Item not found");
