@@ -3,14 +3,21 @@ package com.celfocus.training.user;
 import java.util.Date;
 
 import com.celfocus.training.Constants;
+
 import com.celfocus.training.entites.ItemInfo;
 import com.celfocus.training.entites.ShoppingCart;
 import com.celfocus.training.entites.User;
+import com.celfocus.training.Saver;
+import com.celfocus.training.exceptions.ItemNotFoundException;
+import com.celfocus.training.exceptions.ShoppingCartNotFound;
+import com.celfocus.training.exceptions.UserNotFoundException;
 
 /**
  * User For Frontent
  */
 public class UserRequesterFrontend {
+
+    Saver saver = new Saver();
 
     public String frontendUser(String type, User user) {
         String name = user.getName();
@@ -57,5 +64,25 @@ public class UserRequesterFrontend {
                 + "<items> " + item + "</items>";
         }
         return bodyPage;
+    }
+
+    public void updateUser(String name, String birthDate) throws UserNotFoundException {
+        saver.getAccessUser().updateUser(name, birthDate);
+    }
+
+    public void createUser(String name, String birthDate) {
+        saver.getAccessUser().saveUser(name, birthDate);
+    }
+
+    public void deleteUser(String name, String birthDate) throws UserNotFoundException {
+        saver.getAccessUser().deleteUser(name);
+    }
+
+    public void addItemShopping(String user, String nameItem, int quantity) throws UserNotFoundException, ShoppingCartNotFound,
+        ItemNotFoundException {
+
+        nameItem = nameItem.toLowerCase().concat("_item");
+
+        saver.getAccessShopping().addItemToCart(user, nameItem, quantity);
     }
 }
