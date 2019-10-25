@@ -79,7 +79,6 @@ public class UserRequesterFrontend {
 
     public void addItemShopping(String user, String nameItem, int quantity) throws UserNotFoundException, ShoppingCartNotFound,
         ItemNotFoundException {
-        Saver saver = new Saver();
 
         nameItem = nameItem.toLowerCase().concat("_item");
 
