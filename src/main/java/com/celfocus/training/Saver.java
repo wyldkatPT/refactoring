@@ -1,12 +1,14 @@
-package com.celfocus.training.dataAccessLayer;
+package com.celfocus.training;
 
+import com.celfocus.training.dataAccessLayer.AccessShopping;
+import com.celfocus.training.dataAccessLayer.AccessUser;
 import com.celfocus.training.entites.ItemInfo;
 import com.celfocus.training.entites.ShoppingCart;
 import com.celfocus.training.entites.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class AccessLayer {
+public class Saver {
 
     private final List<User> users = new ArrayList<>();
     private final List<ShoppingCart> shoppingCarts= new ArrayList<>();
@@ -15,7 +17,7 @@ public final class AccessLayer {
     private AccessUser accessUser;
     private AccessShopping accessShopping;
 
-    public AccessLayer() {
+    public Saver() {
         accessUser = new AccessUser(users, shoppingCarts, items);
         accessShopping = new AccessShopping(users, shoppingCarts, items);
     }
