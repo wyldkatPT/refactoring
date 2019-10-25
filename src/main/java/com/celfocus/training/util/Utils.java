@@ -17,7 +17,7 @@ import org.apache.commons.codec.binary.Hex;
 
 public final class Utils {
 
-    private Utils() {};
+    private Utils() {}
 
     static MessageDigest SHA256;
     
@@ -49,9 +49,7 @@ public final class Utils {
         for (String pair : keyValuePairs)                        //iterate over the pairs
         {
             String[] entry = pair.split("=", 2);                   //split the pairs to get key and value
-
             if (entry.length > 1) {
-
                 map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
             }
 
@@ -112,5 +110,11 @@ public final class Utils {
         return map;
     }
 
+    public static int calculateAge(String birthDate){
+        Date date = new Date();
 
+        Date birthDateConverted = Utils.toDate(birthDate, new SimpleDateFormat("dd/mm/yyyy"));
+
+        return date.getYear()- birthDateConverted.getYear();
+    }
 }
