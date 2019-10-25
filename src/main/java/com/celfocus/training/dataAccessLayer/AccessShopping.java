@@ -91,21 +91,4 @@ public class AccessShopping {
             }
         }
     }
-
-    private ShoppingCartItem shoppingCartForDiscount(String name, String nameItem) throws UserNotFoundException, ShoppingCartNotFound,
-        ItemNotFoundException {
-        User user = users.stream().filter(x -> x.getName().equals(name)).findFirst().get();
-
-        if (user == null) {
-            throw new UserNotFoundException("User not found");
-        }
-
-        ShoppingCart shoppingCart = shoppingCarts.stream().filter(x -> x.getUser().equals(user)).findFirst().get();
-
-        if(shoppingCart == null) {
-            throw new ShoppingCartNotFound("Shopping cart not found");
-        }
-
-        return shoppingCart.getItems().stream().filter(x -> x.getItem().getName().equals(nameItem)).findFirst().get();
-    }
 }
