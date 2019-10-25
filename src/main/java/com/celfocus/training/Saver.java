@@ -22,4 +22,19 @@ public class Saver {
         accessShopping = new AccessShopping(users, shoppingCarts, items);
     }
 
+    public AccessUser getAccessUser() {
+        return accessUser;
+    }
+
+    public void setAccessUser(AccessUser accessUser) {
+        this.accessUser = accessUser;
+    }
+
+    public AccessShopping getAccessShopping() {
+        return accessShopping;
+    }
+
+    public void setAccessShopping(AccessShopping accessShopping) {
+        this.accessShopping = accessShopping;
+    }
 }
