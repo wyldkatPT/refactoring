@@ -32,7 +32,7 @@ public class UserRequesterFrontend {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
                     + "<name> " + user.nameOfUser + "</name>"
-                    + "<bd>" + user.bd + "</bd>"
+                    + "<dateOfBirth>" + user.bd + "</dateOfBirth>"
                     + "<older> " + user.ifuserisolder + "</older>";
             } else {
                 //do nothing
@@ -58,7 +58,7 @@ public class UserRequesterFrontend {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
                     + "<user> " + shoppingCart.user + "</user>"
-                    + "<itens> " + shoppingCart.itens + "</itens>";
+                    + "<items> " + shoppingCart.itens + "</items>";
             } else {
                 //do nothing
                 return "";
@@ -114,7 +114,7 @@ public class UserRequesterFrontend {
      */
     public void deleteUser(String arg0) {
         Saver saver = new Saver();
-        saver.deleteUserOrNot(arg0);
+        saver.deleteUser(arg0);
     }
 
     /**
@@ -125,7 +125,7 @@ public class UserRequesterFrontend {
 
         nameItem = nameItem.toLowerCase().concat("_item");
 
-        saver.aIU(user, nameItem, qt);
+        saver.addItemToBasket(user, nameItem, qt);
     }
 
 }
