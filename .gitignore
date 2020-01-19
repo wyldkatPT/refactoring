@@ -193,3 +193,9 @@ buildNumber.properties
 .history
 
 # End of https://www.gitignore.io/api/git,maven,eclipse,intellij,visualstudiocode
+refactoring.iml
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/vcs.xml
