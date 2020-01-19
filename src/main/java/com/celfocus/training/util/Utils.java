@@ -18,15 +18,12 @@ public final class Utils {
 
 	static MessageDigest SHA256;
 
-    static {
+	static {
 		try {
 			SHA256 = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	private Utils() {
 	}
 
 	public static String toHexStringSHA256(String source, Charset charset) {
