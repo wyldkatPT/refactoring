@@ -129,7 +129,7 @@ public class UserRequesterFrontend {
 
         nameItem = nameItem.toLowerCase().concat("_item");
 
-        saver.increaseItemQuantity(user, nameItem, qt);
+        saver.addItemToUser(user, nameItem, qt);
     }
 
 }

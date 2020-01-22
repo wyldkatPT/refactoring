@@ -21,71 +21,77 @@ public class Saver {
 
     public User saveOrUpdateUser(String name, Date birthDate, boolean isOlder) {
         if (this.findUserByName(name)) {
-            User user = this.getUserByName(name);
-            user.setBirthday(birthDate);
-            user.setNotMinor(isOlder);
-            ShoppingCart shoppingCartFound = null;
-            for (ShoppingCart var : shoppingCarts) {
-                if (var.getUser() == user) {
-                    shoppingCartFound = var;
-                }
-            }
-
-            if (shoppingCartFound == null) {
-                ShoppingCart s = new ShoppingCart();
-                s.setUser(user);
-                shoppingCarts.add(s);
-            }
-            users.add(user);
-            return user;
+            return this.updateUser(name, birthDate, isOlder);
         } else {
-            User user = new User(name, birthDate, isOlder);
-            users.add(user);
-            ShoppingCart s = new ShoppingCart();
-            s.setUser(user);
-            s.setItems(new ArrayList<>());
-            shoppingCarts.add(s);
-            return user;
+            return this.createUser(name, birthDate, isOlder);
         }
     }
 
-    public void increaseItemQuantity(String user, String itemName, int quantity) {
+    private User createUser(String name, Date birthDate, boolean isOlder) {
+        User user = new User(name, birthDate, isOlder);
+        users.add(user);
+        ShoppingCart s = new ShoppingCart();
+        s.setUser(user);
+        s.setItems(new ArrayList<>());
+        shoppingCarts.add(s);
+        return user;
+    }
+
+    private User updateUser(String name, Date birthDate, boolean isOlder) {
+        User user = this.getUserByName(name);
+        user.setBirthday(birthDate);
+        user.setNotMinor(isOlder);
+        ShoppingCart shoppingCartFound = this.getShoppingCartByUser(user);
+
+        if (shoppingCartFound == null) {
+            ShoppingCart s = new ShoppingCart();
+            s.setUser(user);
+            shoppingCarts.add(s);
+        }
+        users.add(user);
+        return user;
+    }
+
+    public void addItemToUser(String user, String itemName, int quantity) {
         User userFound = this.getUserByName(user);
         if (Objects.isNull(userFound)) {
             return;
         }
 
-        ShoppingCart shoppingCartFound = null;
-        for (ShoppingCart var : shoppingCarts) {
-            if (var.getUser() == userFound) {
-                shoppingCartFound = var;
-            }
-        }
-
+        ShoppingCart shoppingCartFound = this.getShoppingCartByUser(userFound);
         if (Objects.isNull(shoppingCartFound)) {
             return;
         }
 
         ShoppingCartItem cartItemFound = this.getShoppingCartItem(itemName, shoppingCartFound);
-
         if (Objects.nonNull(cartItemFound)) {
-            int aux = cartItemFound.getQuantity() + quantity;
-            cartItemFound.setQuantity(aux);
+            int quantitySum = cartItemFound.getQuantity() + quantity;
+            cartItemFound.setQuantity(quantitySum);
         } else {
             ItemInfo itemInfo = this.findItemByName(itemName);
             if (Objects.isNull(itemInfo)) {
                 return;
             }
 
-            ShoppingCartItem s1 = new ShoppingCartItem();
-            s1.setItem(itemInfo);
-            s1.setQuantity(quantity);
+            ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+            shoppingCartItem.setItem(itemInfo);
+            shoppingCartItem.setQuantity(quantity);
             if (userFound.isNotMinor() && (new Date().getYear() - userFound.getBirthday().getYear() < 80)) {
-                s1.setDiscount(0.2);
+                shoppingCartItem.setDiscount(0.2);
             } else if (userFound.isNotMinor()) {
-                s1.setDiscount(0.1);
+                shoppingCartItem.setDiscount(0.1);
             }
         }
+    }
+
+    private ShoppingCart getShoppingCartByUser(User userFound) {
+        ShoppingCart shoppingCartFound = null;
+        for (ShoppingCart var : shoppingCarts) {
+            if (var.getUser() == userFound) {
+                shoppingCartFound = var;
+            }
+        }
+        return shoppingCartFound;
     }
 
     private boolean findUserByName(String name) {
