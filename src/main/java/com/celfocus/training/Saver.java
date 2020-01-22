@@ -4,24 +4,23 @@ import com.celfocus.training.entity.ItemInfo;
 import com.celfocus.training.entity.ShoppingCart;
 import com.celfocus.training.entity.ShoppingCartItem;
 import com.celfocus.training.entity.User;
-import com.celfocus.training.util.Utils;
+import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Temos 4 entidades em nosso projeto User, ShoppingCart, ShoppingCartItem e ItemInfo
- */
 public class Saver {
+
 
     private static final List<User> users = new ArrayList<>();
     private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
     private static final List<ItemInfo> itens = new ArrayList<>();
+
+    private static final int OLD_AGE = 80;
+    private static final double SENIOR_DISCOUNT = 0.1;
+    private static final double ADULT_DISCOUNT = 0.2;
+    private static final double CHILD_DISCOUNT = 0.0;
 
     public void saveOrUpdateUser(String userName, Date birthDay, boolean isAdult) {
         if (userExists(userName)) {
@@ -79,15 +78,15 @@ public class Saver {
 
     public static double calculateDiscount(User user) {
         boolean userIsAChild = !user.isAdult;
-        if (userIsAChild) return 0.0;
+        if (userIsAChild) return CHILD_DISCOUNT;
 
         int userAge = user.getUserAge();
-        boolean userIsOld = userAge >= 80;
+        boolean userIsOld = userAge >= OLD_AGE;
 
         if (userIsOld) {
-            return 0.1;
+            return SENIOR_DISCOUNT;
         }
-        return 0.2;
+        return ADULT_DISCOUNT;
     }
 
     private void createShoppingCartForUser(User user) {
