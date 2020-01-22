@@ -81,13 +81,13 @@ public class Saver {
         boolean userIsAChild = !user.isAdult;
         if (userIsAChild) return 0.0;
 
-        int userAge = user.getUserAge(user);
-        boolean userIsOld = userAge < 80;
+        int userAge = user.getUserAge();
+        boolean userIsOld = userAge >= 80;
 
         if (userIsOld) {
-            return 0.2;
+            return 0.1;
         }
-        return 0.1;
+        return 0.2;
     }
 
     private void createShoppingCartForUser(User user) {
