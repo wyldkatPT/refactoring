@@ -24,16 +24,16 @@ public class UserRequesterFrontend {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>User</h1>"
-             + "<span>" + user.nameOfUser + "</span>"
-             + "<span>" + user.bd + "</span>"
-             + "<span>" + user.ifuserisolder + "</span>"
+             + "<span>" + user.user.userName + "</span>"
+             + "<span>" + user.user.birthDay + "</span>"
+             + "<span>" + user.user.isAdult + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<name> " + user.nameOfUser + "</name>"
-                    + "<bd>" + user.bd + "</bd>"
-                    + "<older> " + user.ifuserisolder + "</older>";
+                    + "<name> " + user.user.userName + "</name>"
+                    + "<bd>" + user.user.birthDay + "</bd>"
+                    + "<older> " + user.user.isAdult + "</older>";
             } else {
                 //do nothing
                 return "";
@@ -51,14 +51,14 @@ public class UserRequesterFrontend {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>ShoppingCart</h1>"
-             + "<span> " + shoppingCart.user + "</span>"
-             + "<span> " + shoppingCart.itens + "</span>"
+             + "<span> " + shoppingCart.shoppingCart.user + "</span>"
+             + "<span> " + shoppingCart.shoppingCart.shoppingCartItems + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<user> " + shoppingCart.user + "</user>"
-                    + "<itens> " + shoppingCart.itens + "</itens>";
+                    + "<user> " + shoppingCart.shoppingCart.user + "</user>"
+                    + "<itens> " + shoppingCart.shoppingCart.shoppingCartItems + "</itens>";
             } else {
                 //do nothing
                 return "";
@@ -76,12 +76,12 @@ public class UserRequesterFrontend {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>Item</h1>"
-             + "<span> " + item.name + "</span>"
+             + "<span> " + item.itemName + "</span>"
              + "<span> " + item.valor + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
-                return "<name> " + item.name + "</name>"
+                return "<name> " + item.itemName + "</name>"
                     + "<valor> " + item.valor + "</valor>";
             } else {
                 //do nothing
@@ -114,7 +114,7 @@ public class UserRequesterFrontend {
      */
     public void deleteUser(String arg0) {
         Saver saver = new Saver();
-        saver.deleteUserOrNot(arg0);
+        saver.deleteUser(arg0);
     }
 
     /**
