@@ -67,20 +67,6 @@ public class Saver {
         if (Objects.nonNull(cartItemFound)) {
             int quantitySum = cartItemFound.getQuantity() + quantity;
             cartItemFound.setQuantity(quantitySum);
-        } else {
-            ItemInfo itemInfo = this.findItemByName(itemName);
-            if (Objects.isNull(itemInfo)) {
-                return;
-            }
-
-            ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
-            shoppingCartItem.setItem(itemInfo);
-            shoppingCartItem.setQuantity(quantity);
-            if (userFound.isNotMinor() && (new Date().getYear() - userFound.getBirthday().getYear() < 80)) {
-                shoppingCartItem.setDiscount(0.2);
-            } else if (userFound.isNotMinor()) {
-                shoppingCartItem.setDiscount(0.1);
-            }
         }
     }
 
