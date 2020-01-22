@@ -76,7 +76,7 @@ public class Saver {
         }
     }
 
-    public static double calculateDiscount(User user) {
+    private static double calculateDiscount(User user) {
         boolean userIsAChild = !user.isAdult;
         if (userIsAChild) return CHILD_DISCOUNT;
 
@@ -134,7 +134,7 @@ public class Saver {
         return shoppingCarts.stream().filter(shoppingCart -> shoppingCart.user.equals(user)).findAny().orElse(null);
     }
 
-    public ItemInfo getItemInfoFromName(String itemName) {
+    private ItemInfo getItemInfoFromName(String itemName) {
         return itens.stream().filter(item -> item.itemName.equals(itemName)).findAny().orElse(null);
     }
 
