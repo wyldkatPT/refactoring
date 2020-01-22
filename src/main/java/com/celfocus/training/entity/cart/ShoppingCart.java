@@ -1,6 +1,5 @@
 package com.celfocus.training.entity.cart;
 
-import com.celfocus.training.Saver;
 import com.celfocus.training.entity.User;
 
 import java.util.List;

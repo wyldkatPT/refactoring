@@ -17,10 +17,6 @@ import java.util.Objects;
 
 public final class Utils {
 
-    private Utils() {}
-
-    ;
-
     static MessageDigest SHA256;
 
     static {
