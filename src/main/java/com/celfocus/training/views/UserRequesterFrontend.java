@@ -1,12 +1,12 @@
-package com.celfocus.training.user;
+package com.celfocus.training.views;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.celfocus.training.Saver;
-import com.celfocus.training.Saver.ItemInfo;
-import com.celfocus.training.Saver.ShoppingCart;
-import com.celfocus.training.Saver.User;
+import com.celfocus.training.models.Product;
+import com.celfocus.training.controllers.Saver;
+import com.celfocus.training.models.ShoppingCart;
+import com.celfocus.training.models.User;
 import com.celfocus.training.util.Utils;
 
 /**
@@ -18,22 +18,22 @@ public class UserRequesterFrontend {
      * Metodo utilizado para retornar o Usuario no formato do frontend solicitado
      * @param type tipo do frontend utilizado
      * @param user usuario que será renderizado
-     * @return o texto no formato solicitado com as informarções do user
+     * @return o texto no formato solicitado com as informarções do views
      */
     public String returnFrontendUser(String type, User user) {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>User</h1>"
-             + "<span>" + user.nameOfUser + "</span>"
-             + "<span>" + user.bd + "</span>"
-             + "<span>" + user.ifuserisolder + "</span>"
+             + "<span>" + user.getName() + "</span>"
+             + "<span>" + user.getBirthday() + "</span>"
+             + "<span>" + user.isMoreThan18() + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<name> " + user.nameOfUser + "</name>"
-                    + "<bd>" + user.bd + "</bd>"
-                    + "<older> " + user.ifuserisolder + "</older>";
+                    + "<name> " + user.getBirthday() + "</name>"
+                    + "<bd>" + user.getBirthday() + "</bd>"
+                    + "<older> " + user.isMoreThan18() + "</older>";
             } else {
                 //do nothing
                 return "";
@@ -51,14 +51,14 @@ public class UserRequesterFrontend {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>ShoppingCart</h1>"
-             + "<span> " + shoppingCart.user + "</span>"
-             + "<span> " + shoppingCart.itens + "</span>"
+             + "<span> " + shoppingCart.getUser() + "</span>"
+             + "<span> " + shoppingCart.getCartItems() + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
-                    + "<user> " + shoppingCart.user + "</user>"
-                    + "<itens> " + shoppingCart.itens + "</itens>";
+                    + "<views> " + shoppingCart.getUser() + "</views>"
+                    + "<itens> " + shoppingCart.getCartItems() + "</itens>";
             } else {
                 //do nothing
                 return "";
@@ -69,20 +69,20 @@ public class UserRequesterFrontend {
     /**
      * Metodo utilizado para retornar o Item no formato do frontend solicitado
      * @param type tipo do frontend utilizado
-     * @param item item que será renderizado
+     * @param product producto que será renderizado
      * @return o texto no formato solicitado com as informarções do item
      */
-    public String returnFrontendItem(String type, ItemInfo item) {
+    public String returnFrontendItem(String type, Product product) {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>Item</h1>"
-             + "<span> " + item.name + "</span>"
-             + "<span> " + item.valor + "</span>"
+             + "<span> " + product.getName() + "</span>"
+             + "<span> " + product.getValue() + "</span>"
              + "</div>";
         } else {
             if (type.equals("xml")) {
-                return "<name> " + item.name + "</name>"
-                    + "<valor> " + item.valor + "</valor>";
+                return "<name> " + product.getName() + "</name>"
+                    + "<value> " + product.getValue()+ "</value>";
             } else {
                 //do nothing
                 return "";
