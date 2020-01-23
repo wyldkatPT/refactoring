@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,12 +62,12 @@ public final class Utils {
         return map;
     }
 
-    public static Date toDate(String date, DateFormat format) {
+    public static LocalDateTime toLocalDateTIme(String date, DateTimeFormatter format) {
         Objects.requireNonNull(date);
         Objects.requireNonNull(format);
         try {
-            return format.parse(date);
-        } catch (ParseException ex) {
+            return LocalDateTime.parse(date, format);
+        } catch (DateTimeParseException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -110,6 +113,10 @@ public final class Utils {
             map.put((K) ts[index], (V) ts[index + 1]);
         }
         return map;
+    }
+
+    public boolean hasLessThan80years(LocalDateTime birthDate) {
+        return LocalDateTime.now().getYear() - birthDate.getYear() < 80;
     }
 
 
