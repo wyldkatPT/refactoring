@@ -3,7 +3,8 @@ package com.celfocus.training.user;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.celfocus.training.Saver;
+import com.celfocus.training.controllers.ShoppingCartController;
+import com.celfocus.training.controllers.UserController;
 import com.celfocus.training.entity.ItemInfo;
 import com.celfocus.training.entity.ShoppingCart;
 import com.celfocus.training.entity.User;
@@ -96,7 +97,7 @@ public class UserRequesterFrontend {
      * @param isAdultString
      */
     public void createOrUpdateUser(String userName, String unformattedDate, String isAdultString) {
-        Saver saver = new Saver();
+        UserController userController = new UserController();
 
         userName = userName.toUpperCase();
 
@@ -105,24 +106,24 @@ public class UserRequesterFrontend {
             isAdultString = "false";
         }
 
-        saver.saveOrUpdateUser(userName, date, isAdultString.equals("true"));
+        userController.createOrUpdateUser(userName, date, Boolean.getBoolean(isAdultString));
     }
 
     /**
      * Remover Usuario
      */
-    public void deleteUser(String arg0) {
-        Saver saver = new Saver();
-        saver.deleteUser(arg0);
+    public void deleteUser(String userName) {
+        UserController userController = new UserController();
+        userController.deleteUser(userName);
     }
 
     /**
      * Adicionar item ao carrinho
      */
     public void addItemToShoppingCart(String userName, String itemName, int quantity) {
-        Saver saver = new Saver();
+        ShoppingCartController shoppingCartController = new ShoppingCartController();
         itemName = itemName.toLowerCase().concat("_item");
-        saver.saveItemToShoppingCart(userName, itemName, quantity);
+        shoppingCartController.saveItemToShoppingCart(userName, itemName, quantity);
     }
 
 }
