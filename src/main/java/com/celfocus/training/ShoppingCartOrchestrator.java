@@ -157,7 +157,7 @@ public class ShoppingCartOrchestrator {
     }
 
     /**
-     * Adicionar item ao carrinho
+     * Remover item do carrinho
      */
     public void removeItemFromUserShoppingCart(String username, String itemName) {
 
@@ -172,7 +172,7 @@ public class ShoppingCartOrchestrator {
 
         Optional<ShoppingCart> optionalShoppingCart = shoppingCartController.findShoppingCartByUser(user);
 
-        if (!optionalShoppingCart.isPresent()){
+        if (optionalShoppingCart.isEmpty()){
             System.out.println("shoppingCarts of user = " + username + " not found");
             return;
         }
@@ -181,15 +181,16 @@ public class ShoppingCartOrchestrator {
 
         Optional<ShoppingCartItem> optionalShoppingCartItem = shoppingCart.findShoppingCartItemByItemName(itemName);
 
-        if (!optionalShoppingCartItem.isPresent()){
+        if (optionalShoppingCartItem.isEmpty()){
             System.out.println("shoppingC cart item with item name = " + itemName + " not found");
             return;
         }
 
         ShoppingCartItem shoppingCartItem = optionalShoppingCartItem.get();
 
-        //TODO Should return boolean??????
         shoppingCart.remove(shoppingCartItem);
+
+        System.out.println("Shopping Cart Item " + itemName + " removed");
 
     }
 
@@ -198,6 +199,7 @@ public class ShoppingCartOrchestrator {
         Optional<ItemInfo> optionalItemInfo = itemInfoController.findItem(itemName);
 
         if(optionalItemInfo.isPresent()){
+            System.out.println("Item already exists");
             return;
         }
 
