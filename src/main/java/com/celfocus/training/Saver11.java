@@ -1,5 +1,10 @@
 package com.celfocus.training;
 
+import com.celfocus.training.models.Product;
+import com.celfocus.training.models.ShoppingCart;
+import com.celfocus.training.models.ShoppingCartItem;
+import com.celfocus.training.models.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,13 +12,13 @@ import java.util.List;
 /**
  * Temos 4 entidades em nosso projeto User, ShoppingCart, ShoppingCartItem e ItemInfo
  */
-public class Saver {
+public class Saver11 {
 
     private static final List<User> users = new ArrayList<>();
     private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
-    private static final List<ItemInfo> itens = new ArrayList<>();
+    private static final List<Product> products = new ArrayList<>();
 
-    public static class User {
+   /* public static class User {
         
         public String nameOfUser; // nome
 
@@ -25,7 +30,7 @@ public class Saver {
 
     public static class ShoppingCart {
         
-        public User user;
+        public User views;
 
         public List<ShoppingCartItem> itens;
     }
@@ -45,7 +50,7 @@ public class Saver {
         public String name;
 
         public double valor;
-    }
+    }*/
 
     public User saveOrUpdateUser(String name, Date bd, boolean ifuserisolder) {
         if (eu(name)) {
