@@ -10,12 +10,13 @@ import java.util.List;
 
 public class ItemInfoService implements ItemInfoServiceI {
 
-	public static final double SENIOR_DISCOUNT = 0.1;
-	public static final double LEGAL_AGE_DISCOUNT = 0.2;
-	public static final int SENIOR_AGE = 80;
 	private static final List<User> users = new ArrayList<>();
 	private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
 	private static final List<ItemInfo> itemInfos = new ArrayList<>();
+
+	public static final double SENIOR_DISCOUNT = 0.1;
+	public static final double LEGAL_AGE_DISCOUNT = 0.2;
+	public static final int SENIOR_AGE = 80;
 
 	@Override
 	public void addItemToShoppingCart(String username, String itemName, int quantity) {
@@ -66,5 +67,33 @@ public class ItemInfoService implements ItemInfoServiceI {
 				}
 			}
 		}
+	}
+
+	public ItemInfo findItem(String name) {
+		ItemInfo itemFound = null;
+		for (ItemInfo info : itemInfos) {
+			if (info.getItemName().equals(name)) {
+				itemFound = info;
+			}
+		}
+		return itemFound;
+	}
+
+	public void createItemIfItDoesNotExist(String name, double value) {
+		ItemInfo itemInfo = null;
+		for (ItemInfo info : itemInfos) {
+			if (info.getItemName().equals(name)) {
+				itemInfo = info;
+			}
+		}
+
+		if (itemInfo == null) {
+			createItemInfo(name, value);
+		}
+	}
+
+	private void createItemInfo(String name, double value) {
+		ItemInfo itemInfo = new ItemInfo(name, value);
+		itemInfos.add(itemInfo);
 	}
 }

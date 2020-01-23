@@ -1,5 +1,6 @@
 package com.celfocus.training.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
@@ -8,11 +9,7 @@ public class ShoppingCart {
 	private List<ShoppingCartItem> shoppingCartItems;
 
 	public ShoppingCart() {
-	}
-
-	public ShoppingCart(User user, List<ShoppingCartItem> shoppingCartItems) {
-		this.user = user;
-		this.shoppingCartItems = shoppingCartItems;
+		this.shoppingCartItems = new ArrayList<>();
 	}
 
 	public User getUser() {

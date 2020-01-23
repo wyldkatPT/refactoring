@@ -98,13 +98,6 @@ public class UserRequesterFrontend {
 		}
 	}
 
-	/**
-	 * Cria ou atualiza usuario
-	 *
-	 * @param username
-	 * @param birthday
-	 * @param isLegalAge
-	 */
 	public void createOrUpdateUser(String username, String birthday, String isLegalAge) {
 		UserServiceI userService = new UserService();
 		username = username.toUpperCase();
@@ -118,17 +111,11 @@ public class UserRequesterFrontend {
 				isLegalAge.equals("true"));
 	}
 
-	/**
-	 * Remover Usuario
-	 */
 	public void deleteUser(String username) {
 		UserServiceI userService = new UserService();
 		userService.deleteUser(username);
 	}
 
-	/**
-	 * Adicionar item ao carrinho
-	 */
 	public void addItemToShoppingCart(String username, String itemName, int quantity) {
 		ItemInfoServiceI infoService = new ItemInfoService();
 
