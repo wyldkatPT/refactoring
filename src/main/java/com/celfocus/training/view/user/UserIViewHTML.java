@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class UserIViewHTML implements IView<User> {
 
-    private static final String USER_TEMPLATE = "<div><h1>User</h1><span>%s</span><span>%s</span><span>%s</span></div>";
+    private static final String USER_TEMPLATE = "<div>\n\t<h1>User</h1>\n\t<span>%s</span>\n\t<span>%s</span>\n\t<span>%s</span>\n</div>";
 
     /**
      * Renderiza o User no formato HTML

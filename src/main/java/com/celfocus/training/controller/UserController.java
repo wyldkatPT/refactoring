@@ -1,15 +1,11 @@
 package com.celfocus.training.controller;
 
-import com.celfocus.training.domain.ShoppingCart;
 import com.celfocus.training.domain.User;
 import com.celfocus.training.dto.UserDTO;
-import com.celfocus.training.repository.IUserRepository;
+import com.celfocus.training.repository.user.IUserRepository;
 import com.celfocus.training.util.DateUtils;
 
-import java.util.ArrayList;
 import java.util.Optional;
-
-import static com.celfocus.training.repository.InMemoryShoppingCartRepository.shoppingCartList;
 
 public class UserController {
     private IUserRepository userRepository;
@@ -19,12 +15,12 @@ public class UserController {
     }
 
     public Optional<User> findUser(String username) {
-        return userRepository.findOne(username);
+        return userRepository.findByUsername(username);
     }
 
     public User saveOrUpdateUser(UserDTO userDTO) {
 
-        Optional<User> optionalUser = userRepository.findOne(userDTO.getUsername());
+        Optional<User> optionalUser = userRepository.findByUsername(userDTO.getUsername());
 
         return optionalUser.map(user -> updateUser(user, userDTO)).orElseGet(() -> createUser(userDTO));
     }
@@ -63,7 +59,7 @@ public class UserController {
     }
 
     public boolean deleteUserByUsername(String username) {
-        Optional<User> optionalUser = userRepository.findOne(username);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
 
         return optionalUser.filter(user -> userRepository.remove(user)).isPresent();
     }

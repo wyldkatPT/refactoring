@@ -2,12 +2,12 @@ package com.celfocus.training.controller;
 
 import com.celfocus.training.domain.ShoppingCart;
 import com.celfocus.training.domain.User;
-import com.celfocus.training.repository.IShoppingCartRepository;
+import com.celfocus.training.repository.shoppingcart.IShoppingCartRepository;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static com.celfocus.training.repository.InMemoryShoppingCartRepository.shoppingCartList;
+import static com.celfocus.training.repository.shoppingcart.inmemory.InMemoryShoppingCartRepository.shoppingCartList;
 
 public class ShoppingCartController {
 

@@ -8,9 +8,9 @@ import com.celfocus.training.domain.ShoppingCart;
 import com.celfocus.training.domain.ShoppingCartItem;
 import com.celfocus.training.domain.User;
 import com.celfocus.training.dto.UserDTO;
-import com.celfocus.training.repository.InMemoryItemInfoRepository;
-import com.celfocus.training.repository.InMemoryShoppingCartRepository;
-import com.celfocus.training.repository.InMemoryUserRepository;
+import com.celfocus.training.repository.iteminfo.inmemory.InMemoryItemInfoRepository;
+import com.celfocus.training.repository.shoppingcart.inmemory.InMemoryShoppingCartRepository;
+import com.celfocus.training.repository.user.inmemory.InMemoryUserRepository;
 import com.celfocus.training.view.IView;
 import com.celfocus.training.view.shoppingcart.ShoppingCartIViewXML;
 import com.celfocus.training.view.user.UserIViewHTML;
@@ -30,20 +30,19 @@ public class ShoppingCartOrchestrator {
 
     public void run() {
 
-        userController = new UserController(new InMemoryUserRepository());
+        initControllers();
+
         User user = createOrUpdateUser("Sousa", "01/01/2000", "true");
         User user2 = createOrUpdateUser("Marco", "01/01/2020", "true");
         IView<User> userView = new UserIViewHTML();
         System.out.println(userView.render(user));
 
-        shoppingCartController = new ShoppingCartController(new InMemoryShoppingCartRepository());
         ShoppingCart shoppingCart = createOrUpdateShoppingCart(user2);
         IView<ShoppingCart> shoppingCartView = new ShoppingCartIViewXML();
         System.out.println(shoppingCartView.render(shoppingCart));
 
-        System.out.println(deleteUser(user.getUsername()));
+        deleteUser(user.getUsername());
 
-        itemInfoController = new ItemInfoController(new InMemoryItemInfoRepository());
         addItemToUserShoppingCart("Marco", "monitor", 2);
 
         removeItemFromUserShoppingCart("Marco", "monitor");
@@ -54,6 +53,12 @@ public class ShoppingCartOrchestrator {
 
         removeItemFromUserShoppingCart("Marco", "monitor");
 
+    }
+
+    private void initControllers() {
+        userController = new UserController(new InMemoryUserRepository());
+        shoppingCartController = new ShoppingCartController(new InMemoryShoppingCartRepository());
+        itemInfoController = new ItemInfoController(new InMemoryItemInfoRepository());
     }
 
 

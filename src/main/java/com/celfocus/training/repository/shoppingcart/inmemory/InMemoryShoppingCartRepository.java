@@ -1,13 +1,14 @@
-package com.celfocus.training.repository;
+package com.celfocus.training.repository.shoppingcart.inmemory;
 
 import com.celfocus.training.domain.ShoppingCart;
 import com.celfocus.training.domain.User;
+import com.celfocus.training.repository.shoppingcart.IShoppingCartRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InMemoryShoppingCartRepository implements IShoppingCartRepository{
+public class InMemoryShoppingCartRepository implements IShoppingCartRepository {
 
     public static final List<ShoppingCart> shoppingCartList = new ArrayList<>();
 

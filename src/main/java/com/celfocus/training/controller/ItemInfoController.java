@@ -1,7 +1,7 @@
 package com.celfocus.training.controller;
 
 import com.celfocus.training.domain.ItemInfo;
-import com.celfocus.training.repository.IItemInfoRepository;
+import com.celfocus.training.repository.iteminfo.IItemInfoRepository;
 
 import java.util.Optional;
 
