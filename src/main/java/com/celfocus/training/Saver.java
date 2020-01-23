@@ -1,5 +1,9 @@
 package com.celfocus.training;
 
+import com.celfocus.training.core.IShoppingCart;
+import com.celfocus.training.core.IUserSaver;
+import com.celfocus.training.core.ShoppingCartFinder;
+import com.celfocus.training.core.UserSaver;
 import com.celfocus.training.entity.User;
 import com.celfocus.training.entity.cart.ItemInfo;
 import com.celfocus.training.entity.cart.ShoppingCart;
@@ -10,55 +14,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Temos 4 entidades em nosso projeto User, ShoppingCart, ShoppingCartItem e ItemInfo
- */
 public class Saver {
 
     private static final List<User> users = new ArrayList<>();
     private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
     private static final List<ItemInfo> items = new ArrayList<>();
+    private static final IUserSaver iUserSaver = new UserSaver();
+    private static final IShoppingCart iShoppingCart = new ShoppingCartFinder();
 
     public User saveOrUpdateUser(String name, Date birthDate, boolean isOlder) {
-        if (this.findUserByName(name)) {
-            return this.updateUser(name, birthDate, isOlder);
+        if (iUserSaver.findUserByName(name, users)) {
+            return iUserSaver.updateUser(name, birthDate, isOlder, users, shoppingCarts);
         } else {
-            return this.createUser(name, birthDate, isOlder);
+            return iUserSaver.createUser(name, birthDate, isOlder, users, shoppingCarts);
         }
-    }
-
-    private User createUser(String name, Date birthDate, boolean isOlder) {
-        User user = new User(name, birthDate, isOlder);
-        users.add(user);
-        ShoppingCart s = new ShoppingCart();
-        s.setUser(user);
-        s.setItems(new ArrayList<>());
-        shoppingCarts.add(s);
-        return user;
-    }
-
-    private User updateUser(String name, Date birthDate, boolean isOlder) {
-        User user = this.getUserByName(name);
-        user.setBirthday(birthDate);
-        user.setNotMinor(isOlder);
-        ShoppingCart shoppingCartFound = this.getShoppingCartByUser(user);
-
-        if (shoppingCartFound == null) {
-            ShoppingCart s = new ShoppingCart();
-            s.setUser(user);
-            shoppingCarts.add(s);
-        }
-        users.add(user);
-        return user;
     }
 
     public void addItemToUser(String user, String itemName, int quantity) {
-        User userFound = this.getUserByName(user);
+        User userFound = iUserSaver.getUserByName(user, users);
         if (Objects.isNull(userFound)) {
             return;
         }
 
-        ShoppingCart shoppingCartFound = this.getShoppingCartByUser(userFound);
+        ShoppingCart shoppingCartFound = iShoppingCart.getShoppingCartByUser(userFound, shoppingCarts);
         if (Objects.isNull(shoppingCartFound)) {
             return;
         }
@@ -68,36 +46,6 @@ public class Saver {
             int quantitySum = cartItemFound.getQuantity() + quantity;
             cartItemFound.setQuantity(quantitySum);
         }
-    }
-
-    private ShoppingCart getShoppingCartByUser(User userFound) {
-        ShoppingCart shoppingCartFound = null;
-        for (ShoppingCart var : shoppingCarts) {
-            if (var.getUser() == userFound) {
-                shoppingCartFound = var;
-            }
-        }
-        return shoppingCartFound;
-    }
-
-    private boolean findUserByName(String name) {
-        User userFound = null;
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                userFound = user;
-            }
-        }
-        return userFound != null;
-    }
-
-    private User getUserByName(String name) {
-        User userFound = null;
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                userFound = user;
-            }
-        }
-        return userFound;
     }
 
     public void deleteUserOrNot(String name) {
@@ -120,15 +68,5 @@ public class Saver {
             }
         }
         return cartItemFound;
-    }
-
-    private ItemInfo findItemByName(String name) {
-        ItemInfo itemFound = null;
-        for (ItemInfo item : items) {
-            if (item.getName().equals(name)) {
-                itemFound = item;
-            }
-        }
-        return itemFound;
     }
 } 
