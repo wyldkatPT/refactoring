@@ -19,6 +19,12 @@ public class ShoppingCartItem {
         return amount;
     }
 
+    public ShoppingCartItem(Product product, int amount, double discount) {
+        this.product = product;
+        this.amount = amount;
+        this.discount = discount;
+    }
+
     public void setAmount(int amount) {
         this.amount = amount;
     }

@@ -4,6 +4,7 @@ import com.celfocus.training.models.Product;
 import com.celfocus.training.models.ShoppingCart;
 import com.celfocus.training.models.ShoppingCartItem;
 import com.celfocus.training.models.User;
+import com.celfocus.training.services.UserService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,9 +15,9 @@ import java.util.List;
  */
 public class Controller {
 
-        private static final List<User> users = new ArrayList<>();
+       /* private static final List<User> users = new ArrayList<>();
         private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
-        private static final List<Product> products = new ArrayList<>();
+        private static final List<Product> products = new ArrayList<>();*/
 
         public User saveOrUpdateUser(String name, Date birthday, boolean hasMoreThan18) {
             if (eu(name)) {
@@ -71,6 +72,7 @@ public class Controller {
         return userFound;
     }*/
 
+/*
         public ItemInfo encontrarItem(String name) {
             ItemInfo itemFound = null;
             for (ItemInfo item : itens) {
@@ -80,6 +82,7 @@ public class Controller {
             }
             return itemFound;
         }
+*/
 
     /*public void deleteUserOrNot(String name) {
         User userFound = null;
@@ -94,18 +97,14 @@ public class Controller {
         }
     }*/
 
-        public void aIU(String user, String nameItem, int qt) {
-            User userFound = null;
-            for (User user1 : users) {
-                if (user1.nameOfUser.equals(user)) {
-                    userFound = user1;
-                }
-            }
+    // add item to user
+        public void aIU(String username, String productName, int amount) {
+            User user = UserService.find(username);
 
-            if (userFound != null) {
+            if (user != null) {
                 ShoppingCart found = null;
                 for (ShoppingCart var : shoppingCarts) {
-                    if (var.user == userFound) {
+                    if (var.user == user) {
                         found = var;
                     }
                 }
@@ -121,23 +120,18 @@ public class Controller {
                     if (scif != null) {
                         scif.qt += qt;
                     } else {
-                        ItemInfo ifo = null;
-                        for (ItemInfo item : itens) {
-                            if (item.name.equals(nameItem)) {
-                                ifo = item;
-                            }
-                        }
+                       Product.find(productName)
 
                         if (ifo != null) {
-                            ShoppingCartItem s1 = new ShoppingCartItem();
-                            s1.item = ifo;
-                            s1.qt = qt;
-                            if ( userFound.ifuserisolder
-                                    == true && (new Date().getYear() - userFound.bd.getYear() < 80) ) {
-                                s1.discount = 0.2;
-                            } else if (userFound.ifuserisolder
+                            ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+                            shoppingCartItem.item = ifo;
+                            shoppingCartItem.qt = qt;
+                            if ( user.ifuserisolder
+                                    == true && (new Date().getYear() - user.bd.getYear() < 80) ) {
+                                shoppingCartItem.discount = 0.2;
+                            } else if (user.ifuserisolder
                                     == true) {
-                                s1.discount = 0.1;
+                                shoppingCartItem.discount = 0.1;
                             }
                         } else {
 
@@ -148,6 +142,7 @@ public class Controller {
             }
         }
 
+    // remove item from user
         public void rIU(String user, String nameItem) {
             User userFound = null;
             for (User user1 : users) {

@@ -13,7 +13,7 @@ public class UserService implements CRUDService<User> {
         return users;
     };
 
-    public User findByName(String name) {
+    public User find(String name) {
         for (User user : users) {
             if (user.getName().equals(name)) {
                 return user;
@@ -21,17 +21,28 @@ public class UserService implements CRUDService<User> {
         }
         return null;
     };
+
+    public boolean doesUserExist(User user) {
+        return users.indexOf(user) != -1;
+    }
     
     public void saveOrUpdate(User user) {
-        int index = users.indexOf(user);
-        boolean doesUserExist = index != -1;
 
-        if (!doesUserExist) {
-            users.add(user);
+        if (!doesUserExist(user)) {
+            add(user);
         } else {
-            users.set(index, user);
+            replace(user);
         }
     };
+
+    public void add (User user) {
+        users.add(user);
+    }
+
+    public void replace (User user) {
+        int index = users.indexOf(user);
+        users.set(index, user);
+    }
 
     public void delete(User model) {
         users.remove(model);

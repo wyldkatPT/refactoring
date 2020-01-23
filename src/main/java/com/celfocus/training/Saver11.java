@@ -1,4 +1,9 @@
-package com.celfocus.training.models;
+package com.celfocus.training;
+
+import com.celfocus.training.models.Product;
+import com.celfocus.training.models.ShoppingCart;
+import com.celfocus.training.models.ShoppingCartItem;
+import com.celfocus.training.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;

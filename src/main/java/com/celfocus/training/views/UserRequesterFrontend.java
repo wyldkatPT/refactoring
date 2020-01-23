@@ -20,7 +20,7 @@ public class UserRequesterFrontend {
      * @param user usuario que será renderizado
      * @return o texto no formato solicitado com as informarções do views
      */
-    public String returnFrontendUser(String type, User user) {
+    public String getFrontendUser(String type, User user) {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>User</h1>"
@@ -47,7 +47,7 @@ public class UserRequesterFrontend {
      * @param shoppingCart shoppingCart que será renderizado
      * @return o texto no formato solicitado com as informarções do shoppingCart
      */
-    public String returnFrontendShoppingCart(String type, ShoppingCart shoppingCart) {
+    public String getFrontendShoppingCart(String type, ShoppingCart shoppingCart) {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>ShoppingCart</h1>"
@@ -72,7 +72,7 @@ public class UserRequesterFrontend {
      * @param product producto que será renderizado
      * @return o texto no formato solicitado com as informarções do item
      */
-    public String returnFrontendItem(String type, Product product) {
+    public String getFrontendItem(String type, Product product) {
         if (type.equals("html")) {
             return "<div>"
              + "<h1>Item</h1>"

@@ -6,7 +6,7 @@ import com.celfocus.training.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingCartService  {
+public class ShoppingCartItemService {
 
     private UserService userService;
     private static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
