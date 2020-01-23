@@ -32,6 +32,8 @@ public class ShoppingCartOrchestrator {
 
         initControllers();
 
+
+
         User user = createOrUpdateUser("Sousa", "01/01/2000", "true");
         User user2 = createOrUpdateUser("Marco", "01/01/2020", "true");
         IView<User> userView = new UserIViewHTML();
@@ -89,11 +91,7 @@ public class ShoppingCartOrchestrator {
 
         ShoppingCart shoppingCart;
 
-        if (optionalShoppingCart.isPresent()) {
-            shoppingCart = optionalShoppingCart.get();
-        } else {
-            shoppingCart = shoppingCartController.createShoppingCart(user);
-        }
+        shoppingCart = optionalShoppingCart.orElseGet(() -> shoppingCartController.createShoppingCart(user));
 
         return shoppingCart;
     }
@@ -110,9 +108,11 @@ public class ShoppingCartOrchestrator {
      */
     public void addItemToUserShoppingCart(String username, String itemName, int quantity) {
 
+        itemName = itemName.toLowerCase().concat("_item");
+
         Optional<User> optionalUser = userController.findUser(username);
 
-        if (!optionalUser.isPresent()){
+        if (optionalUser.isEmpty()){
             System.out.println("username + \" not found\" = " + username + " not found");
             return;
         }
@@ -122,7 +122,7 @@ public class ShoppingCartOrchestrator {
         Optional<ShoppingCart> optionalShoppingCart = shoppingCartController.findShoppingCartByUser(user);
 
 
-        if (!optionalShoppingCart.isPresent()){
+        if (optionalShoppingCart.isEmpty()){
             System.out.println("shoppingCarts of user = " + username + " not found");
             return;
         }
@@ -139,7 +139,7 @@ public class ShoppingCartOrchestrator {
 
             Optional<ItemInfo> optionalItemInfo = itemInfoController.findItem(itemName);
 
-            if (!optionalItemInfo.isPresent()){
+            if (optionalItemInfo.isEmpty()){
                 System.out.println("infoItem with name = " + itemName + " not found");
                 return;
             }
@@ -163,7 +163,7 @@ public class ShoppingCartOrchestrator {
 
         Optional<User> optionalUser = userController.findUser(username);
 
-        if (!optionalUser.isPresent()){
+        if (optionalUser.isEmpty()){
             System.out.println("username + \" not found\" = " + username + " not found");
             return;
         }
